@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGA SENA</title>
+</head>
+<body>
+    <script>
+      // declaração das variaveis com atribuição dos vetores
+         var numerosSorteio = []  
+         var numerosEscolhidos = []
+    // utilizando for para gerar 6 numeros aleatorios com intervalo de 1 a 60
+    for (var i = 0; i < 6; i++){ 
+        var numero = parseInt(Math.random() * 60) + 1;
+        // verificacao se o numero gerado ja consta no vetor
+        // se o numero ja constar no vetor, nao inclui, e decrementa o  
+        // i para fazer a iteracao novamente
+        if (numerosSorteio.includes(numero)){
+            i--
+        // se o numero nao constar, incluir no vetor
+        }else{
+            numerosSorteio.push(numero)            
+        }
+    }
+    // utilizar a funcao sort() com o parametro para colocar em ordem crescente numerica
+    numerosSorteio.sort(function(a, b) {return a-b})      
+    console.log(numerosSorteio);
+
+    // utilizando o while para receber os inputs dos numeros escolhidos
+    var cont = 0
+    while (cont < 6){
+        // o parseInt é para transformar o input do usuario em INT
+        var aposta = parseInt(prompt("Escolha números de 1 a 60: "))
+        // se o input do usuario nao for um numero vai entrar no primeiro IF
+        if(isNaN(aposta)){
+            alert("Digite um valor numérico!")
+        }
+        // se o numero nao estiver no intervalo 1 a 60, entra nesse else if
+        else if (aposta < 1 || aposta > 60){
+            alert("O número deve ser entre 1 e 60!")
+        // se o numero ja constar no vetor, entra nesse else if            
+        }else if(numerosEscolhidos.includes(aposta)){
+            alert("Número já escolhido")
+        // se tudo der certo entra no else e armazena o numero no vetor
+        }else{
+            numerosEscolhidos.push(aposta)
+            cont = cont + 1
+        }
+    }numerosEscolhidos.sort(function (a,b){return a-b})
+    console.log(numerosEscolhidos);
+
+    cont = 0
+    for (var i = 0; i < 6; i++){
+        for(var j = 0; j < 6; j++){
+            if(numerosEscolhidos[i] == numerosSorteio[j]){
+                cont++
+            }
+        }
+    }
+
+    if(cont == 6){
+        alert("Parabéns você ganhou a SENA")
+    }else if(cont == 5){
+        alert("Parabéns você ganhou a QUINA")
+    }else if(cont == 4){
+        alert("Parabéns você ganhou a QUADRA")
+    }else if(cont <= 3){
+        alert("Você não ganhou nada! Boa sorte na próxima.")
+    }
+    console.log(cont);
+ 
+    document.write("<br><br>");
+        document.write("Números sorteados: " + numerosSorteio.join(", "));
+        document.write("<br>");
+        document.write("Números escolhidos: " + numerosEscolhidos.join(", "));
+        document.write("<br>");
+        document.write("Acertos: " + cont);
+
+
+
+
+
+
+    </script>
+</body>
+</html>
